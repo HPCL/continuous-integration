@@ -1,0 +1,4 @@
+greenballs:latest
+git:latest
+bitbucket-pullrequest-builder:latest
+ghprb:latest
