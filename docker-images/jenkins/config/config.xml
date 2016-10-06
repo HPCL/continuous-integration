@@ -1,41 +1,132 @@
-<?xml version='1.0' encoding='UTF-8'?>                                                             
-<hudson>                                                                                           
-  <disabledAdministrativeMonitors/>                                                                
-  <version>1.0</version>                                                                           
-  <numExecutors>2</numExecutors>                                                                   
-  <mode>NORMAL</mode>                                                                              
-  <useSecurity>true</useSecurity>                                                                  
-  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">     
-    <denyAnonymousReadAccess>true</denyAnonymousReadAccess>                                        
-  </authorizationStrategy>                                                                         
-  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">                               
-    <disableSignup>true</disableSignup>                                                            
-    <enableCaptcha>false</enableCaptcha>                                                           
-  </securityRealm>                                                                                 
-  <disableRememberMe>false</disableRememberMe>                                                     
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors/>
+  <version>2.7.4</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.FullControlOnceLoggedInAuthorizationStrategy">
+    <denyAnonymousReadAccess>true</denyAnonymousReadAccess>
+  </authorizationStrategy>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
   <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
-  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>                          
-  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>                                                    
-  <jdks/>                                                                                          
-  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>                                           
-  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>                                       
-  <clouds/>                                                                                        
-  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>                                                 
-  <views>                                                                                          
-    <hudson.model.AllView>                                                                         
-      <owner class="hudson" reference="../../.."/>                                                 
-      <name>All</name>                                                                             
-      <filterExecutors>false</filterExecutors>                                                     
-      <filterQueue>false</filterQueue>                                                             
-      <properties class="hudson.model.View$PropertyList"/>                                         
-    </hudson.model.AllView>                                                                        
-  </views>                                                                                         
-  <primaryView>All</primaryView>                                                                   
-  <slaveAgentPort>-1</slaveAgentPort>                                                              
-  <label></label>                                                                                  
-  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">                                    
-    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>                                     
-  </crumbIssuer>                                                                                   
-  <nodeProperties/>                                                                                
-  <globalNodeProperties/>                                                                          
+  <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <jdks/>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds>
+    <com.github.kostyasha.yad.DockerCloud plugin="yet-another-docker-plugin@0.1.0-rc27">
+      <name>docker</name>
+      <provisionedImages/>
+      <templates>
+        <com.github.kostyasha.yad.DockerSlaveTemplate>
+          <id>c924a37c-d652-4224-8647-fee5deffcc69</id>
+          <labelString>docker-slave</labelString>
+          <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
+            <sshConnector plugin="ssh-slaves@1.11">
+              <port>22</port>
+              <credentialsId>jenkins-slave</credentialsId>
+              <jvmOptions></jvmOptions>
+              <javaPath></javaPath>
+              <maxNumRetries>0</maxNumRetries>
+              <retryWaitTime>0</retryWaitTime>
+            </sshConnector>
+          </launcher>
+          <remoteFs>/home/jenkins</remoteFs>
+          <maxCapacity>10</maxCapacity>
+          <mode>EXCLUSIVE</mode>
+          <retentionStrategy class="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">
+            <idleMinutes>10</idleMinutes>
+            <idleMinutes defined-in="com.github.kostyasha.yad.strategy.DockerOnceRetentionStrategy">10</idleMinutes>
+          </retentionStrategy>
+          <numExecutors>1</numExecutors>
+          <dockerContainerLifecycle>
+            <image>jenkins-slave:latest</image>
+            <pullImage>
+              <pullStrategy>PULL_NEVER</pullStrategy>
+              <credentialsId></credentialsId>
+            </pullImage>
+            <createContainer>
+              <command></command>
+              <hostname></hostname>
+              <dnsHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </dnsHosts>
+              <volumes class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumes>
+              <volumesFrom class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </volumesFrom>
+              <environment class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </environment>
+              <bindPorts></bindPorts>
+              <bindAllPorts>false</bindAllPorts>
+              <memoryLimit>0</memoryLimit>
+              <privileged>false</privileged>
+              <tty>false</tty>
+              <extraHosts class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </extraHosts>
+              <devices class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </devices>
+              <cpusetCpus></cpusetCpus>
+              <cpusetMems></cpusetMems>
+              <links class="java.util.Collections$UnmodifiableRandomAccessList" resolves-to="java.util.Collections$UnmodifiableList">
+                <c class="list"/>
+                <list reference="../c"/>
+              </links>
+            </createContainer>
+            <stopContainer>
+              <timeout>10</timeout>
+            </stopContainer>
+            <removeContainer>
+              <removeVolumes>false</removeVolumes>
+              <force>false</force>
+            </removeContainer>
+          </dockerContainerLifecycle>
+          <nodeProperties/>
+        </com.github.kostyasha.yad.DockerSlaveTemplate>
+      </templates>
+      <containerCap>10</containerCap>
+      <connector>
+        <serverUrl>tcp://arya:2376</serverUrl>
+        <apiVersion>1.24</apiVersion>
+        <credentialsId>jenkins_docker_creds</credentialsId>
+        <connectorType>NETTY</connectorType>
+      </connector>
+    </com.github.kostyasha.yad.DockerCloud>
+  </clouds>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <properties class="hudson.model.View$PropertyList"/>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
 </hudson>

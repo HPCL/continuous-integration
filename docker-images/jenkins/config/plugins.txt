@@ -2,3 +2,4 @@ greenballs:latest
 git:latest
 bitbucket-pullrequest-builder:latest
 ghprb:latest
+yet-another-docker-plugin:latest
