@@ -1,6 +1,6 @@
 FROM openjdk:8-jdk
 
-RUN apt-get update && apt-get install -y git curl python && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y vim git curl python python-pip && rm -rf /var/lib/apt/lists/*
 
 ENV JENKINS_HOME /home/jenkins_home
 RUN mkdir -p $JENKINS_HOME
@@ -68,4 +68,8 @@ COPY config $JENKINS_HOME
 
 RUN mkdir /usr/share/jenkins/ref/plugins
 RUN cat /home/jenkins_home/plugins.txt | xargs /usr/local/bin/install-plugins.sh
+
+# Install and run jenkins-job-builder
+RUN pip install --user jenkins-job-builder pyaml
+
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.py"]
