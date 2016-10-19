@@ -10,8 +10,11 @@ RUN useradd jenkins && \
     mkdir -p $JENKINS_HOME/.ssh
 
 COPY config/authorized_keys $JENKINS_HOME/.ssh/authorized_keys
-
 RUN chown jenkins:jenkins $JENKINS_HOME -R
+
+RUN mkdir -p /root/.ssh
+COPY config/authorized_keys /root/.ssh/authorized_keys
+
 
 # Setup ssh server
 RUN mkdir /var/run/sshd
