@@ -1,0 +1,22 @@
+- job:
+    name: orio-tests
+    project-type: freestyle
+    properties:
+      - github:
+          url: https://github.com/brnorris03/Orio/ 
+    defaults: global
+    description: 'Tests for Orio'
+    disabled: false
+    display-name: 'Orio Tests'
+    concurrent: true
+    quiet-period: 5
+    node: docker-slave
+    scm:
+      - git:
+          url: https://github.com/brnorris03/Orio/
+          branches:
+            - master
+    builders:
+      - shell: |
+          python setup.py install
+          orcc --help 
