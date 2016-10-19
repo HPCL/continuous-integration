@@ -1,6 +1,5 @@
 FROM ubuntu:16.04
 
-
 RUN apt update && \
     apt -y install vim python openssh-server git
 
@@ -9,7 +8,10 @@ ENV JENKINS_HOME /home/jenkins
 RUN useradd jenkins && \
     usermod -aG sudo jenkins && \
     mkdir -p $JENKINS_HOME/.ssh
-COPY config/authorized_users $JENKINS_HOME/.ssh/
+
+COPY config/authorized_keys $JENKINS_HOME/.ssh/authorized_keys
+
+RUN chown jenkins:jenkins $JENKINS_HOME -R
 
 # Setup ssh server
 RUN mkdir /var/run/sshd

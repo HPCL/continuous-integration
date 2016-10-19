@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import argparse
 import os
 import subprocess
@@ -12,8 +13,10 @@ def arg_parse():
 
 
 def setup_credentials():
-  authorized_user_path = "/root/certs/docker_container/jenkins-slave/authorized_users"
-  copyfile(authorized_user_path, "config/authorized_users")
+  authorized_keys_path = "/root/certs/docker_container/jenkins-slave/authorized_keys"
+  if not os.path.exists("./config"):
+    os.makedirs("config")
+  copyfile(authorized_keys_path, "config/authorized_keys")
   
 
 def build_container(args):
