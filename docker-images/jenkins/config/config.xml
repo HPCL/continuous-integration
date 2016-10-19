@@ -30,7 +30,7 @@
           <launcher class="com.github.kostyasha.yad.launcher.DockerComputerSSHLauncher">
             <sshConnector plugin="ssh-slaves@1.11">
               <port>22</port>
-              <credentialsId>jenkins-slave</credentialsId>
+              <credentialsId>jenkins_docker_creds</credentialsId>
               <jvmOptions></jvmOptions>
               <javaPath></javaPath>
               <maxNumRetries>0</maxNumRetries>
