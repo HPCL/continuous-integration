@@ -23,7 +23,7 @@
       <insensitiveSearch>false</insensitiveSearch>
     </hudson.search.UserSearchProperty>
     <hudson.security.HudsonPrivateSecurityRealm_-Details>
-      <passwordHash>#jbcrypt:$2a$10$27aLqiRRUz7GsTcb/1GNIetp3dwqd7ymXa8d.IuQZ22R8mvP02pu2</passwordHash>
+      <passwordHash>{{ hpcl_admin_hash }}</passwordHash>    
     </hudson.security.HudsonPrivateSecurityRealm_-Details>
   </properties>
 </user>

@@ -62,7 +62,6 @@ EXPOSE 50000
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
-USER ${user}
 
 # from a derived Dockerfile, can use `RUN plugins.sh active.txt` to setup /usr/share/jenkins/ref/plugins from a support bundle
 COPY scripts /usr/local/bin/
@@ -72,5 +71,8 @@ COPY config $JENKINS_HOME
 
 RUN mkdir /usr/share/jenkins/ref/plugins
 RUN cat /home/jenkins_home/plugins.txt | xargs /usr/local/bin/install-plugins.sh
+
+RUN chown -R ${user} "$JENKINS_HOME"
+USER ${user}
 
 ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.py"]
